@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyFireBaseApp</string>
+    <string name="btnLogOut">LOGOUT</string>
+    <string name="btnRegister">REGISTER</string>
+</resources>

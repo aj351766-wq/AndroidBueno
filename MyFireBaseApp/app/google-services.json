@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "978341473176",
+    "project_id": "myfirebaseapp-c7cf1",
+    "storage_bucket": "myfirebaseapp-c7cf1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978341473176:android:acb17bdbf8b33838fe19ed",
+        "android_client_info": {
+          "package_name": "cat.institutmarianao.myfirebaseapp1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwEaMRinCS1AuBTRpaRtb61wqJE-JeJkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

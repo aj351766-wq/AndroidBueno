@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Layouts</string>
+    <string name="to">User:</string>
+    <string name="subject">Subject:</string>
+    <string name="message">Message:</string>
+    <string name="send">SEND</string>
+    <string name="reminder">Reminder:</string>
+    <string name="done">DONE</string>
+</resources>
