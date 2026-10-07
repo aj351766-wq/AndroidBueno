@@ -6,28 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/firestoreTextView"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnRegDB"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Firestore clients"
-        android:textSize="22sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clientsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="50pt"
+        android:text="REGISTER DB" />
 
     <Button
         android:id="@+id/btnLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
         android:text="@string/btnLogOut" />
 
 </LinearLayout>

@@ -1,16 +1,21 @@
 package cat.institutmarianao.myfirebaseapp1
 
 
+import android.media.Image
 import android.util.Log
 import android.widget.TextView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
 
 
 
-class ClientAdapter(private val clients: MutableList<Client>) :
+class ClientAdapter(
+    private val clients: MutableList<Client>,
+    private val onDeleteClick: (Client) -> Unit) :
+
     RecyclerView.Adapter<ClientAdapter.ClientViewHolder>() {
 
     // The ViewHolder, that uses the view layout and
@@ -18,6 +23,9 @@ class ClientAdapter(private val clients: MutableList<Client>) :
         val nameText: TextView = itemView.findViewById(R.id.nameTextView)
         val emailText: TextView = itemView.findViewById(R.id.emailTextView)
         val ageText: TextView = itemView.findViewById(R.id.ageTextView)
+
+        val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -26,6 +34,8 @@ class ClientAdapter(private val clients: MutableList<Client>) :
         // The view, which uses item_client layout
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_client, parent, false)
         return ClientViewHolder(view)
+
+
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -37,6 +47,10 @@ class ClientAdapter(private val clients: MutableList<Client>) :
         holder.ageText.text = client.age.toString()
         holder.emailText.text = client.email
         holder.nameText.text = client.name
+        holder.deleteBtn.setOnClickListener {
+            onDeleteClick(client)
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

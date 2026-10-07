@@ -2,22 +2,27 @@ package cat.institutmarianao.myfirebaseapp1
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.firestore
-
 class MainActivity : AppCompatActivity() {
+
+    private val db = Firebase.firestore
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var clientAdapter: ClientAdapter
+    private val clientList = mutableListOf<Client>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.loginButton)
         val registerButton= findViewById<Button>(R.id.registerButton)
         val accessDialogButton = findViewById<Button>(R.id.accessDialogButton)
+
+
 
 
         loginButton.setOnClickListener {
@@ -47,8 +54,43 @@ class MainActivity : AppCompatActivity() {
                 showLoginDialog()
             }
         }
+
+        // Set up RecyclerView
+        recyclerView = findViewById(R.id.clientsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // The ClientAdapter get each element from the clientList and place it in the element layout (item_client)
+        setupRecyclerView(recyclerView)
+
+
+        recyclerView.adapter = clientAdapter
+
+        // Load data from Firestore
+        loadClientsFromFirestore()
+    }
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        clientAdapter = ClientAdapter(
+            mutableListOf(),
+            onDeleteClick = { client -> showDeleteDialog(client) }
+
+        )
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = clientAdapter
     }
 
+    private fun showDeleteDialog(client : Client){
+
+    }
+    private fun enviarDatos(email : String, password : String){
+        val clientsActivity=Intent(this, ClientsActivity::class.java).apply {
+            // The intent does not have a URI, so declare the "text/plain" MIME type
+            putExtra("email", email)
+            putExtra("password", password)
+
+        }
+        startActivity(clientsActivity)
+
+    }
 
     private fun showLoginDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_login, null)
@@ -59,55 +101,12 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Login") { _, _ ->
                 val email = emailEditText.text.toString().trim()
                 val password = passwordEditText.text.toString().trim()
-
+                enviarDatos(email, password)
                 login(email, password)
             }.setNegativeButton("Cancel", null).show()
     }
 
-  /*  private fun showRegisterDialog() { //Falta hacer REGISTER a la base de datos y cambiar vista de adapter en la pantalla principal
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_register, null)
-        val emailEditText = dialogView.findViewById<EditText>(R.id.emailEditText)
-        val ageEdittext = dialogView.findViewById<EditText>(R.id.ageEditText)
-        val passwordEditText = dialogView.findViewById<EditText>(R.id.passwordEditText)
 
-        AlertDialog.Builder(this).setTitle("Registrat en l'aplicació:").setView(dialogView)
-            .setPositiveButton("Register") { _, _ ->
-                val email = emailEditText.text.toString().trim()
-                val age = ageEdittext.text.toString().toIntOrNull()
-                val password = passwordEditText.text.toString().trim()
-
-                if(age != null){
-                    registrarUsuario(email, password, age)
-                }
-                else{
-                    Toast.makeText(
-                        this, "Register incorrect email or error not well formated or age null/invalid", Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-            }.setNegativeButton("Cancel", null).show()
-    }*/
-
-
-
-    private fun registrarUsuario(email: String, password: String, age : Int){
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "User successfully created!", Toast.LENGTH_SHORT).show()
-
-
-                    val clientsActivity = Intent(this, ClientsActivity::class.java)
-                    startActivity(clientsActivity)
-
-                } else {
-                    Toast.makeText(
-                        this, "Register incorrect email or error not well formated", Toast.LENGTH_SHORT
-                    ).show()
-                    Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
     private fun registrarUsuario(email: String, password: String){
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -116,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
 
                     val clientsActivity = Intent(this, ClientsActivity::class.java)
-                    startActivity(clientsActivity)
+                    enviarDatos(email, password)
 
                 } else {
                     Toast.makeText(
@@ -152,7 +151,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val clientsActivity = Intent(this, ClientsActivity::class.java)
-                    startActivity(clientsActivity)
+                    enviarDatos(email, password)
                 } else {
                     Toast.makeText(
                         this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT
@@ -161,11 +160,24 @@ class MainActivity : AppCompatActivity() {
 
 
                 }
+
+
             }
-
-
-
 
     }
 
+
+    private fun loadClientsFromFirestore() {
+        // * Firestore get all documents from collection * //
+        Log.d("PRUEBA", "ESTOY EN MAIN ACTIVITY")
+        db.collection("clients").get().addOnSuccessListener {
+                result ->
+            val newListClients=result.toObjects(Client :: class.java) // clear list before get new data
+
+            clientAdapter.updateData(newListClients)
+            Log.d("Firestore", "Datos cargados correctamente: ${newListClients.size} clientes." + " Client list size: ${clientList.size}")
+        }.addOnFailureListener { exception ->
+            Log.w("Firestore", "Error getting documents.", exception)
+        }
+    }
 }

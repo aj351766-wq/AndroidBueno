@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://android.com"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Texto del mensaje -->
+    <TextView
+        android:id="@+id/tvMensaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Quieres borrar?"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <!-- Contenedor de los botones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <!-- Botón Cancelar -->
+        <Button
+            android:id="@+id/btnCancel"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:textColor="@android:color/darker_gray" />
+
+        <!-- Botón Aceptar -->
+        <Button
+            android:id="@+id/btnAcept"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="ACEPT"
+            android:textColor="@android:color/holo_red_dark" />
+
+    </LinearLayout>
+</LinearLayout>

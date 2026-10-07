@@ -2,31 +2,54 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="16dp"
     android:layout_marginBottom="8dp">
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nombre"
-        android:textSize="20sp" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/ageTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edad"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/ageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edad"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/deleteBtn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.30"
+        android:scaleType="fitCenter"
+        android:padding="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        app:srcCompat="@drawable/papelera"
+        />
+
+
 
 </LinearLayout>

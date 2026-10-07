@@ -2,4 +2,7 @@
     <string name="app_name">MyFireBaseApp</string>
     <string name="btnLogOut">LOGOUT</string>
     <string name="btnRegister">REGISTER</string>
+    <string name="edad">Edad</string>
+    <string name="email">Email</string>
+    <string name="nombre">Nombre</string>
 </resources>

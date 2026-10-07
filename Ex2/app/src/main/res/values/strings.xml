@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Exercici_2_Password</string>
+    <string name="gess_the_password">Gess the password</string>
+    <string name="password">Password</string>
+    <string name="check">CHECK</string>
+    <string name="guess_password">Guess password</string>
+    <string name="close">CLOSE</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Ex3_LordOfTheRings</string>
+    <string name="say_my_friend_who_you_are">SAY MY FRIEND WHO YOU ARE</string>
+    <string name="and_i_will_tell_you_the_score_you_have">AND I WILL TELL YOU THE SCORE YOU HAVE</string>
+    <string name="button_doom">BUTTON DOOM</string>
+    <string name="name">Name</string>
+    <string name="back_again">BACK AGAIN</string>
+</resources>
