@@ -18,56 +18,62 @@ class UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_user)
+
+        configurarWindowInsets()
+
+        checkTipoFormulario()
+    }
+
+    private fun configurarWindowInsets(){
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
 
+    private fun checkTipoFormulario(){
+        val txt= intent.extras?.getString("TEXT")?.lowercase()?.trim()
 
-
-        val bundle = intent.extras
-
-        val txt = bundle?.getString("TEXT")?.trim()?.lowercase()
-
-
-
-        if (txt == "name") {
-            formulariName()
+        if(txt=="name"){
+            formularioName()
         }
-
-        if (txt == "age") {
-            setContentView(R.layout.activity_age)
-            val btnSubmit = findViewById<Button>(R.id.btnSubmit)
-            val btnCancel = findViewById<Button>(R.id.btnCancel)
-
-            btnSubmit.setOnClickListener {
-                val age = findViewById<EditText>(R.id.AgeEditText).text.toString()
-
-                if (!(age.isEmpty()))  {
-                    val intent = Intent()
-
-                    val intAge=age.toInt()
-                    intent.putExtra("TYPE", "age")
-                    intent.putExtra("Age", intAge)
-
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
-
-                else{
-                    Toast.makeText(this, "El camp no pot estar buit",Toast.LENGTH_SHORT).show()
-                }
-
-
-            }
-            btnCancel.setOnClickListener {
-                finish()
-            }
+        if (txt == "age"){
+            formularioAge()
         }
     }
 
-    private fun formulariName(){
+    private fun formularioAge(){
+        setContentView(R.layout.activity_age)
+        val btnSubmit = findViewById<Button>(R.id.btnSubmit)
+        val btnCancel = findViewById<Button>(R.id.btnCancel)
+
+        btnSubmit.setOnClickListener {
+            val age = findViewById<EditText>(R.id.AgeEditText).text.toString()
+
+            if (!(age.isEmpty()))  {
+                val intent = Intent()
+
+                val intAge=age.toInt()
+                intent.putExtra("TYPE", "age")
+                intent.putExtra("Age", intAge)
+
+                setResult(RESULT_OK, intent)
+                finish()
+            }
+
+            else{
+                Toast.makeText(this, "El camp no pot estar buit",Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
+        btnCancel.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun formularioName(){
         setContentView(R.layout.activity_name)
 
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
