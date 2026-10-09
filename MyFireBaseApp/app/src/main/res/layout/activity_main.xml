@@ -41,19 +41,5 @@
         android:layout_height="wrap_content"
         android:text="DIALOG"/>
 
-    <TextView
-        android:id="@+id/firestoreTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Firestore clients"
-        android:textSize="22sp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clientsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="16dp"/>
 
 </LinearLayout>

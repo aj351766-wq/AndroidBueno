@@ -63,7 +63,7 @@ class UserActivity : AppCompatActivity() {
             }
 
             else{
-                Toast.makeText(this, "El camp no pot estar buit",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "The field cannot be empty.",Toast.LENGTH_SHORT).show()
             }
 
 
@@ -93,7 +93,7 @@ class UserActivity : AppCompatActivity() {
             }
 
             else{
-                Toast.makeText(this, "El camp no pot estar buit",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "The field cannot be empty.",Toast.LENGTH_SHORT).show()
             }
 
 

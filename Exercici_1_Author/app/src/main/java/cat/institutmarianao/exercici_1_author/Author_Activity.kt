@@ -11,7 +11,7 @@ class Author_Activity : AppCompatActivity() {
 
 
     //Element layout
-    private lateinit var btnClose : Button
+    private lateinit var btnClose: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +28,17 @@ class Author_Activity : AppCompatActivity() {
 
     }
 
-    private fun configurarBtnClose(){
+    private fun configurarBtnClose() {
         btnClose.setOnClickListener {
             finish()
         }
     }
-    private fun inicializarContenidoLayout(){
-        btnClose= findViewById<Button>(R.id.btnClose)
+
+    private fun inicializarContenidoLayout() {
+        btnClose = findViewById<Button>(R.id.btnClose)
     }
 
-    private fun configurarWindowView(){
+    private fun configurarWindowView() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

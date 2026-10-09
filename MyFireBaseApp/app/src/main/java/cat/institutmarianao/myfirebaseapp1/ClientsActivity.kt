@@ -1,5 +1,6 @@
 package cat.institutmarianao.myfirebaseapp1
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +20,13 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.handleCoroutineException
 
 class ClientsActivity : AppCompatActivity() {
+    private val db = Firebase.firestore
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var clientAdapter: ClientAdapter
+    private val clientList = mutableListOf<Client>()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,7 +40,18 @@ class ClientsActivity : AppCompatActivity() {
         val btnRegDB= findViewById<Button>(R.id.btnRegDB)
         val btnLogOut = findViewById<Button>(R.id.btnLogOut)
 
+        // Set up RecyclerView
+        recyclerView = findViewById(R.id.clientsRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
+        // The ClientAdapter get each element from the clientList and place it in the element layout (item_client)
+        setupRecyclerView(recyclerView)
+
+
+        recyclerView.adapter = clientAdapter
+
+        // Load data from Firestore
+        loadClientsFromFirestore()
 
 
         btnRegDB.setOnClickListener {
@@ -48,7 +65,19 @@ class ClientsActivity : AppCompatActivity() {
         }
 
     }
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        clientAdapter = ClientAdapter(
+            mutableListOf(),
+            onDeleteClick = { client -> showDeleteDialog(client) }
 
+        )
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = clientAdapter
+    }
+
+    private fun showDeleteDialog(client : Client){
+
+    }
     private fun showRegisterDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_register, null)
         val ageEdittext = dialogView.findViewById<EditText>(R.id.ageEditText)
@@ -97,5 +126,23 @@ class ClientsActivity : AppCompatActivity() {
 
 
     }
+
+
+
+    private fun loadClientsFromFirestore() {
+        // * Firestore get all documents from collection * //
+        Log.d("PRUEBA", "ESTOY EN MAIN ACTIVITY")
+        db.collection("clients").get().addOnSuccessListener {
+                result ->
+            val newListClients=result.toObjects(Client :: class.java) // clear list before get new data
+
+            clientAdapter.updateData(newListClients)
+            Log.d("Firestore", "Datos cargados correctamente: ${newListClients.size} clientes." + " Client list size: ${clientList.size}")
+        }.addOnFailureListener { exception ->
+            Log.w("Firestore", "Error getting documents.", exception)
+        }
+    }
+
+
 }
 

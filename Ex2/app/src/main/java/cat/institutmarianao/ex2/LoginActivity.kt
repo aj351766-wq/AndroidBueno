@@ -29,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
 
         inicializarVariablesLayout()
 
+        mostrarBienvenida()
+
         configurarBtnClose()
 
     }
@@ -45,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
     private fun mostrarBienvenida(){
         val usernameActivityMain=obtenerUsername()
 
-        welcomeText.text= "Welcome $usernameActivityMain"
+        welcomeText.text= "Welcome $usernameActivityMain!"
     }
     private fun inicializarVariablesLayout(){
         btnClose = findViewById(R.id.CloseBtn)

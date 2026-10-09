@@ -5,4 +5,5 @@
     <string name="check">CHECK</string>
     <string name="guess_password">Guess password</string>
     <string name="close">CLOSE</string>
+    <string name="welcome">Welcome!</string>
 </resources>
